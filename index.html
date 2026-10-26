@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urban FloodGuard AI - Prototype</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="drop"></span><h1 data-i="title">Urban FloodGuard AI</h1></div>
+  <input id="search" list="areas" placeholder="Search an area (e.g. Simmakkal)" aria-label="Search area">
+  <datalist id="areas"></datalist>
+  <select id="lang" aria-label="Language">
+    <option value="en">English</option><option value="ta">தமிழ்</option><option value="hi">हिन्दी</option>
+  </select>
+  <button id="liveBtn" class="btn">Use live weather</button>
+</header>
+
+<section class="stats">
+  <div><b id="sHigh">0</b><span data-i="high">High</span> zones</div>
+  <div><b id="sMed">0</b><span data-i="med">Medium</span> zones</div>
+  <div><b id="sLow">0</b><span data-i="low">Low</span> zones</div>
+  <div><b id="sMon">0</b>areas monitored</div>
+  <div><b id="sAlert">0</b>alerts generated</div>
+</section>
+
+<main class="grid">
+  <div id="map" role="application" aria-label="Flood risk map"></div>
+
+  <aside class="panel">
+    <div class="box">
+      <label for="rain">What-if rainfall in 24h: <b id="rainVal">90</b> mm</label>
+      <input id="rain" type="range" min="0" max="250" value="90">
+      <p id="rainSrc" class="note">Source: manual slider (sample data)</p>
+    </div>
+    <div class="box" id="detail">
+      <h2 id="dName">Select a location</h2>
+      <p id="dBadge"></p>
+      <dl id="dFacts"></dl>
+      <h3>Why this risk</h3>
+      <div id="factors"></div>
+      <p id="dRec" class="rec"></p>
+      <p id="dEvac" class="note"></p>
+    </div>
+    <div class="box"><h3>Rainfall over 24 hours (mm/h)</h3><canvas id="rainChart" width="360" height="120"></canvas></div>
+    <div class="box"><h3>Past flood events per year</h3><canvas id="histChart" width="360" height="110"></canvas></div>
+  </aside>
+</main>
+
+<nav class="tabs" role="tablist">
+  <button class="tab on" data-tab="t1">Priority list</button>
+  <button class="tab" data-tab="t2">Alerts</button>
+  <button class="tab" data-tab="t3">Model evaluation</button>
+  <button class="tab" data-tab="t4">Citizen reports</button>
+</nav>
+
+<section id="t1" class="tabbody"><table id="prio"></table></section>
+<section id="t2" class="tabbody" hidden><ul id="alerts"></ul></section>
+<section id="t3" class="tabbody" hidden>
+  <div id="evalBox"></div>
+</section>
+<section id="t4" class="tabbody" hidden>
+  <form id="repForm" onsubmit="return false">
+    <select id="repArea"></select>
+    <input id="repNote" placeholder="What are you seeing? (e.g. water above knee level)">
+    <button id="repBtn" class="btn">Submit report</button>
+  </form>
+  <ul id="reports"></ul>
+</section>
+
+<footer>Prototype with sample data only. Not a live or official flood warning system.</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
